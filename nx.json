@@ -1,6 +1,11 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
+    "serve": {
+      "dependsOn": [
+        "build"
+      ]
+    },
     "build": {
       "outputs": [
         "{projectRoot}/dist"
@@ -10,5 +15,21 @@
     "typecheck": {
       "cache": true
     }
-  }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/js/typescript",
+      "options": {
+        "typecheck": {
+          "targetName": "tsc:typecheck"
+        },
+        "build": {
+          "targetName": "tsc:build",
+          "configName": "tsconfig.lib.json",
+          "buildDepsName": "tsc:build-deps",
+          "watchDepsName": "tsc:watch-deps"
+        }
+      }
+    }
+  ]
 }
